@@ -1,0 +1,61 @@
+CREATE TABLE Chamado (
+    id_chamado INT PRIMARY KEY AUTO_INCREMENT,
+    titulo_chamado VARCHAR(255) NOT NULL,
+    descricao_chamado TEXT,
+    codigo_status_chamado INT NOT NULL,
+    codigo_chamado_cliente INT NOT NULL,
+    codigo_chamado_sistema INT NOT NULL,
+    codigo_chamado_especialista INT NOT NULL,
+    Tipo_Manutencao_chamado INT NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_fechamento DATETIME,
+    feedback_cliente TEXT,
+    FOREIGN KEY (codigo_chamado_cliente) REFERENCES Cliente(codigo_cliente),
+    FOREIGN KEY (codigo_chamado_sistema) REFERENCES Sistema(codigo_sistema),
+    FOREIGN KEY (codigo_chamado_especialista) REFERENCES Especialista(codigo_especialista),
+	FOREIGN KEY (codigo_status_chamado ) REFERENCES Status_Chamado(codigo_status_chamado ),
+    FOREIGN KEY (Tipo_Manutencao_chamado ) REFERENCES Tipo_Manutencao(codigo_tipo_manutencao )
+    );
+    
+    
+    CREATE TABLE Cliente (
+    codigo_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    nome_cliente VARCHAR(255) NOT NULL,
+    telefone_cliente VARCHAR(20)
+);
+
+
+CREATE TABLE ADM (
+    codigo_ADM INT PRIMARY KEY AUTO_INCREMENT,
+    nome_ADM VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Tipo_Sistema (
+    codigo_tipo INT PRIMARY KEY AUTO_INCREMENT,
+    nome_tipo_sistema VARCHAR(255) NOT NULL
+);
+    
+    
+    CREATE TABLE Sistema (
+    codigo_sistema INT PRIMARY KEY AUTO_INCREMENT,
+    Nome VARCHAR(255) NOT NULL,
+    codigotipo INT,
+    FOREIGN KEY (codigotipo) REFERENCES Tipo_Sistema(codigo_tipo)
+);
+
+CREATE TABLE Especialista (
+    codigo_especialista INT PRIMARY KEY AUTO_INCREMENT,
+    nome_especialista VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE Status_Chamado (
+    codigo_status_chamado INT PRIMARY KEY AUTO_INCREMENT,
+    nome_status_chamado VARCHAR(255) NOT NULL,
+    
+);
+
+CREATE TABLE Tipo_Manutencao (
+    codigo_tipo_manutencao INT PRIMARY KEY AUTO_INCREMENT,
+    nome_tipo_manutencao VARCHAR(255) NOT NULL
+);
