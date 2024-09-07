@@ -59,3 +59,22 @@ CREATE TABLE Tipo_Manutencao (
     codigo_tipo_manutencao INT PRIMARY KEY AUTO_INCREMENT,
     nome_tipo_manutencao VARCHAR(255) NOT NULL
 );
+
+***TENTATIVA DE TABELA DE LOGIN*** 
+
+create table login(
+	id_login INT PRIMARY KEY AUTO_INCREMENT,
+    nome_usuario VARCHAR(50) UNIQUE NOT NULL, 
+    senha VARCHAR(10) NOT NULL,
+    tipo_user ENUM ('Cliente', 'ADM', 'Especialista'),
+    usuario_id INT NOT NULL,
+	CONSTRAINT fk_usuario_cliente FOREIGN KEY (usuario_id) REFERENCES Cliente(codigo_cliente),
+    CONSTRAINT fk_usuario_adm FOREIGN KEY (usuario_id) REFERENCES ADM(codigo_ADM),
+    CONSTRAINT fk_usuario_especialista FOREIGN KEY (usuario_id) REFERENCES Especialista(codigo_especialista)
+);
+
+   CHECK (
+        (tipo_user = 'Cliente' AND usuario_id IN (SELECT codigo_cliente FROM Cliente)) OR
+        (tipo_user = 'ADM' AND usuario_id IN (SELECT codigo_ADM FROM ADM)) OR
+        (tipo_user = 'Especialista' AND usuario_id IN (SELECT codigo_especialista FROM Especialista))
+    )
